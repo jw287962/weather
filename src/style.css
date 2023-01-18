@@ -133,6 +133,9 @@ button:active{
 }
  @media only screen and (max-width: 600px) {
   body {
+    overflow-x: hidden;
+    margin: 0px;
+    margin: 0px;
   }
   .header{
     display: flex;
@@ -155,14 +158,15 @@ overflow: scroll;
   }
   .weatherdetails{
     flex-direction: column;
-    max-width: 99vw;
+    max-width: 98vw;
+    margin: 0px;
 
   }
   .forecastwrap{
     display: flex;
     position: relative;
     max-width: 99vw;
-    overflow-x: scroll;
+    overflow: scroll;
   }
   .sundetails{
     position: inherit;
