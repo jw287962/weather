@@ -1,7 +1,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+
 module.exports = {
+  resolve: {
+    fallback: {
+      "fs": false,
+    }
+  }, 
   mode: "development",
   entry: "./src/index.js",
   devtool: "inline-source-map",
@@ -9,6 +15,7 @@ module.exports = {
     static: "./dist",
   },
   plugins: [
+
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),

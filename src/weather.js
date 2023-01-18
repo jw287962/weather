@@ -1,10 +1,10 @@
 import { format, fromUnixTime } from 'date-fns';
 import date from '../node_modules/date-fns'
-
-
 let processedData = {};
 const content = document.querySelector('.loading');
 let processedForecast = {};
+
+
 
 async function fetchWeatherForecast(location = "Madison"){
   try {
@@ -120,14 +120,12 @@ function capitalizeFirstLetter(input){
 }
 
 function getCountry(data){
-  console.log(data.sys.country);
   return data.sys.country;
 
 }
 function tempToFarenheit(data) {
   const currentTemp = data.main.temp;
   const newTemp = ((1.8 * (currentTemp - 273) + 32)).toFixed(0);
-  console.log(newTemp, " F " );
   return newTemp;
 }
 function checkLocation(data) {
@@ -136,25 +134,23 @@ function checkLocation(data) {
   currentLocation.push(data.coord.lon);
   console.log(currentLocation[0] , currentLocation[1]);
   return currentLocation;
-}
+
+  }
 
 function getHumidity(data) {
   const currentHumidity = data.main.humidity;
-  console.log(currentHumidity + "% humidity");
   return currentHumidity + '%';
 }
 
 function getSunset(data) {
   const timeOfSunset = fromUnixTime(data.sys.sunset);
     const formattedTime = formatTime(timeOfSunset);
-  console.log("SUNSET: " + formattedTime);
   return formattedTime;
 }
 
 function getSunrise(data) {
   const timeOfSunrise = fromUnixTime(data.sys.sunrise);
   const formattedTime = formatTime(timeOfSunrise);
-  console.log("SUNRISE: " + formattedTime);
   return formattedTime;
 }
 

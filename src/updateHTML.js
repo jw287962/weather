@@ -129,7 +129,6 @@ if(forecastDiv.length >0){
   forecastWrapDiv.appendChild(newDiv);
 
   for(let i = 0; i <days;i++){
-    console.log(forecast);
     const date = forecast[`${location}`][`${i}`].date;
     const temp = forecast[`${location}`][`${i}`].temp;
     const description = forecast[`${location}`][`${i}`].description;
@@ -210,7 +209,6 @@ content.textContent = "Unique Locations Only!"
 function promiseEvalUpdateHTML(promise, data){
   promise
   .then(() => {
-    console.log(promise);
     updateWeatherHTML();
     locations.push(data);
     fetchWeatherForecast(data);

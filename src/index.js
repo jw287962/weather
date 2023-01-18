@@ -7,7 +7,6 @@ import {addSearchListener,updateWeatherHTML, refreshData,
 
 let defaultLocation = 'Madison';
 let promise = fetchWeatherCurrent(defaultLocation);
-let promiseForcast = fetchWeatherForecast(defaultLocation);
 
 promiseEvalUpdateHTML(promise,defaultLocation);
 
