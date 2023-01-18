@@ -129,9 +129,10 @@ if(forecastDiv.length >0){
   forecastWrapDiv.appendChild(newDiv);
 
   for(let i = 0; i <days;i++){
-    const date = forecast[`${location}${i}`].date;
-    const temp = forecast[`${location}${i}`].temp;
-    const description = forecast[`${location}${i}`].description;
+    console.log(forecast);
+    const date = forecast[`${location}`][`${i}`].date;
+    const temp = forecast[`${location}`][`${i}`].temp;
+    const description = forecast[`${location}`][`${i}`].description;
     addForeCastHTML(date,temp,description,location);
   }
 

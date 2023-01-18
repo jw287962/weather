@@ -24,13 +24,15 @@ async function fetchWeatherForecast(location = "Madison"){
     console.log(newData.list);
       const dataArray = newData.list;
       let i = 0;
-      dataArray.forEach(element =>{
-        
-        processedForecast[`${city}${i}`] = {};
+      processedForecast[`${city}`] = {};
 
-        processedForecast[`${city}${i}`].date = getDate(element,i);
-        processedForecast[`${city}${i}`].temp = getTemperature(element);
-        processedForecast[`${city}${i}`].description = getDescriptionForecast(element);
+      dataArray.forEach(element =>{
+      processedForecast[`${city}`][i] = {date: 0};
+        
+        processedForecast[`${city}`][`${i}`].date = getDate(element,i);
+
+        processedForecast[`${city}`][`${i}`].temp = getTemperature(element);
+        processedForecast[`${city}`][`${i}`].description = getDescriptionForecast(element);
 
         i++;
       })
