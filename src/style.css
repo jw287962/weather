@@ -116,7 +116,7 @@ button:active{
 }
 
 #hot{
-  color: rgb(255, 255, 0);
+  color: rgb(255, 255, 85);
   text-shadow:
   -1px -1px 0 #000,  
    1px -1px 0 #000,
@@ -124,5 +124,10 @@ button:active{
     1px 1px 0 #000;
 }
 #cold{
-  color: blue;
+  color: #8ee8ff;
+  text-shadow:
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
