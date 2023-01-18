@@ -65,6 +65,7 @@ function updateWeatherHTML(){
 
   const removeForecastButton = document.createElement('button');
   removeForecastButton.classList.add('forecastday');
+  removeForecastButton.setAttribute('id',`${data.city}`);
   removeForecastButton.textContent = "1 Day"
   removeForecastButton.addEventListener('click',removeForecast);
 
