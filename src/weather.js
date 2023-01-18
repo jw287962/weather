@@ -1,6 +1,6 @@
 import { format, fromUnixTime } from 'date-fns';
 import date from '../node_modules/date-fns'
-import updateWeatherHTML from './updateHTML';
+import { updateWeatherHTML } from './updateHTML';
 
 let processedData = {};
 
