@@ -21,7 +21,10 @@ body {
   font-weight: 900;
   font-size: 40px;
 }
+.content{
+  min-width: 700px;
 
+}
 .refresh{
   background-color: white;
   border: none;
@@ -82,11 +85,18 @@ button:active{
 }
 
 /* FORECAST */
-.forecastmonth,.forecastweek{
+.forecastbuttons{
+  position: relative;
+  left: 35%;
+}
+
+.forecastmonth,.forecastweek,.forecastday{
   background-color: white;
   border: 1px solid grey;
   margin: 2px;
   position: relative;
+  border-radius: 5px;
+  width: 70px;
 }
 
 .forecast{
@@ -95,5 +105,7 @@ button:active{
   grid-template-columns: repeat(7,100px);
 }
 .day{
-  margin-top: 15px;
+  margin-top: 20px;
+  color: black;
 }
+

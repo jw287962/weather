@@ -28,7 +28,7 @@ async function fetchWeatherForecast(location = "Madison"){
         
         processedForecast[`${city}${i}`] = {};
 
-
+        processedForecast[`${city}${i}`].date = getDate(element,i);
         processedForecast[`${city}${i}`].temp = getTemperature(element);
         processedForecast[`${city}${i}`].description = getDescriptionForecast(element);
 
@@ -41,6 +41,14 @@ async function fetchWeatherForecast(location = "Madison"){
     content.textContent = "Please type a valid location!";
     throw new Error("ERROR:" + err);
   }
+}
+function getDate(element,num){
+  const addNum = num*86400000 + element.dt;
+  console.log(element.dt);
+
+  const date = format(addNum,'iiiiii');
+return date;
+
 }
 function getDescriptionForecast(element){
   const description = element.weather[0].description;

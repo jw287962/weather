@@ -51,6 +51,15 @@ function updateWeatherHTML(){
   sunrise.textContent = 'Sunrise ' + data.sunrise;
   sunset.textContent = 'Sunset ' + data.sunset;
   country.textContent = data.country;
+  
+  const forecastButtonDiv = document.createElement('div');
+  forecastButtonDiv.classList.add('forecastbuttons')
+
+
+  const removeForecastButton = document.createElement('button');
+  removeForecastButton.classList.add('forecastday');
+  removeForecastButton.textContent = "1 Day"
+  removeForecastButton.addEventListener('click',removeForecast);
 
   const forecastWeekButton = document.createElement('button');
   forecastWeekButton.classList.add('forecastweek');
@@ -63,21 +72,28 @@ function updateWeatherHTML(){
   forecastMonthButton.classList.add('forecastmonth');
   forecastMonthButton.setAttribute('id',`${data.city}`);
   forecastMonthButton.textContent = "30 Days";
-  // forecastMonthButton.addEventListener('click',showForecast);
+  forecastMonthButton.addEventListener('click',showForecast);
+
+  forecastButtonDiv.appendChild(removeForecastButton);
+  forecastButtonDiv.appendChild(forecastWeekButton);
+  forecastButtonDiv.appendChild(forecastMonthButton);
+
 
   weatherDetails.appendChild(location);
   weatherDetails.appendChild(tempdiv);
   weatherDetails.appendChild(description);
   weatherDetails.appendChild(humidity);
-  sunDetails.appendChild(forecastMonthButton);
-  sunDetails.appendChild(forecastWeekButton);
   sunDetails.appendChild(country);
   sunDetails.appendChild(sunset);
   sunDetails.appendChild(sunrise);
+  weatherDetails.appendChild(forecastButtonDiv);
   weatherDetails.appendChild(sunDetails);
+}
 
-
-
+function removeForecast(event){
+  const location = event.target.id
+  const forecastDiv = document.getElementsByClassName(`forecast ${location}`);
+  forecastDiv[0].remove();
 }
 function showForecast(event){
   const location = event.target.id
@@ -102,27 +118,31 @@ if(forecastDiv.length >0){
   weatherDetails.appendChild(newDiv);
 
   for(let i = 0; i <days;i++){
-    console.log(forecast)
+    const date = forecast[`${location}${i}`].date;
     const temp = forecast[`${location}${i}`].temp;
     const description = forecast[`${location}${i}`].description;
-    addForeCastHTML(temp,description,location);
+    addForeCastHTML(date,temp,description,location);
   }
 
 }
 
-function addForeCastHTML(temp, description,location){
+function addForeCastHTML(date,temp, description,location){
   const weatherDetails = document.querySelector(`.${location}`);
   const holderDiv = weatherDetails.lastChild;
 
 
   const dayDiv = document.createElement('div');
   dayDiv.classList.add('day');
-  const tempDiv = document.createElement('div');
-  tempDiv.textContent = temp + '°F';;
+  const dateDiv = document.createElement('div');
 
+  const tempDiv = document.createElement('div');
   const descriptionDiv = document.createElement('div');
+
+  dateDiv.textContent = date;
+  tempDiv.textContent = temp + '°F';
   descriptionDiv.textContent = description;
   holderDiv.appendChild(dayDiv);
+  dayDiv.appendChild(dateDiv);
   dayDiv.appendChild(tempDiv);
   dayDiv.appendChild(descriptionDiv);
 
