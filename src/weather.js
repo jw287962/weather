@@ -1,11 +1,15 @@
 import { format, fromUnixTime } from 'date-fns';
 import date from '../node_modules/date-fns'
-import { updateWeatherHTML } from './updateHTML';
+
 
 let processedData = {};
+const content = document.querySelector('.loading');
 
 async function fetchWeather(location = "Huntsville") {
   try {
+   
+    content.textContent = "loading ... (please wait)";
+    
     const city = location;
 
     const promise = await fetch(
@@ -22,16 +26,42 @@ async function fetchWeather(location = "Huntsville") {
     processedData.sunset = getSunset(newData);
     processedData.sunrise = getSunrise(newData);
     processedData.temp = tempToFarenheit(newData);
-    updateWeatherHTML();
+    processedData.country = getCountry(newData);
+    processedData.description = getDescription(newData);
+  
+    content.textContent = "";
   } catch (err) {
-    console.log("fetch ERROR:", err);
+    content.textContent = "Please type a valid location!";
+    throw new Error("ERROR:" + err);
   }
+}
+function getDescription(data){
+  let description = data.weather[0].description;
+ description = capitalizeFirstLetter(description);
+  return description;
+
+}
+function capitalizeFirstLetter(input){
+  let description = input;
+  let array = description.split(' ');
+  description = '';
+  array.forEach(element => {
+    description += element.charAt(0).toUpperCase() + element.slice(1) + " ";
+    
+  });
+  return description;
+}
+
+function getCountry(data){
+  console.log(data.sys.country);
+  return data.sys.country;
+
 }
 function tempToFarenheit(data) {
   const currentTemp = data.main.temp;
   const newTemp = ((1.8 * (currentTemp - 273) + 32)).toFixed(2);
   console.log(newTemp, " F " );
-  return newTemp + '°F';
+  return newTemp;
 }
 function checkLocation(data) {
   const currentLocation = [];

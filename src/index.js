@@ -1,12 +1,29 @@
 import "./style.css";
 import {getProcessedData,fetchWeather} from './weather';
-import {addSearchListener} from './updateHTML'
+import {addSearchListener,updateWeatherHTML} from './updateHTML'
 
-fetchWeather('Madison');
-let weatherData = getProcessedData();
+let promise = fetchWeather('Madison');
+console.log(promise);
 
+
+promise
+.then(() => {
+  console.log(promise);
+  updateWeatherHTML();
+})
+.catch((err) => {
+  console.log('ERR:', err);
+});
 addSearchListener();
 
-console.log(weatherData);
+
+const refreshButton = document.querySelector('.refresh');
+refreshButton.addEventListener('click',refreshData);
+
+function refreshData(){
+  
+}
+
 
 // FUNCTIONS
+

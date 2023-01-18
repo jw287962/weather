@@ -15,27 +15,47 @@ function updateWeatherHTML(){
   location.classList.add('location');
   const humidity = document.createElement('div');
   humidity.classList.add('humidity');
+  const tempdiv = document.createElement('div');
+  tempdiv.classList.add('temp');
+  const description = document.createElement('div');
+  description.classList.add('description');
+
   const sunset = document.createElement('div');
   sunset.classList.add('sunset');
   const sunrise = document.createElement('div');
   sunrise.classList.add('sunrise');
-  const temp = document.createElement('div');
-  temp.classList.add('temp');
+  const country = document.createElement('div');
+  sunrise.classList.add('country');
 
-  location.innerHTML = '<b>Location:</b> ';
-  location.innerHTML += data.city;
+
+  location.textContent += data.city;
+  sunrise.classList.add('country');
   humidity.textContent = data.humidity +  ' Humidity ';
 
+  // TEMPERATURE SPANS
+
+  const tempDegrees = document.createElement('span');
+  tempDegrees.textContent = data.temp;
+  tempDegrees.classList.add('tempdegree')
+  const tempSymbol = document.createElement('span');
+  tempSymbol.textContent = '°F';
+  tempSymbol.classList.add('tempsymbol');
+  tempdiv.appendChild(tempDegrees);
+  tempdiv.appendChild(tempSymbol);
   
-  sunrise.textContent = 'Sunrise ' +data.sunrise;
+  description.textContent = data.description;
+
+  sunrise.textContent = 'Sunrise ' + data.sunrise;
   sunset.textContent = 'Sunset ' + data.sunset;
-  temp.textContent = data.temp;
+  country.textContent = data.country;
+
 
 
   weatherDetails.appendChild(location);
-  weatherDetails.appendChild(temp);
-
+  weatherDetails.appendChild(tempdiv);
+  weatherDetails.appendChild(description);
   weatherDetails.appendChild(humidity);
+  sunDetails.appendChild(country);
   sunDetails.appendChild(sunset);
   sunDetails.appendChild(sunrise);
   weatherDetails.appendChild(sunDetails);
@@ -55,7 +75,15 @@ function getSearchData(event){
   const searchData = document.querySelector('#location');
   let data = searchData.value;
 
-  fetchWeather(data);
+ let promise =  fetchWeather(data);
+console.log(promise);
+  promise
+  .then(() => {
+    updateWeatherHTML();
+  })
+  .catch((err) => {
+    console.log('CAUGHT ERROR:', err);
+  });
 }
 
 export { updateWeatherHTML, addSearchListener };

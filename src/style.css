@@ -22,6 +22,15 @@ body {
   font-size: 40px;
 }
 
+.refresh{
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  position: relative;
+}
+:active{
+  top: 2px
+}
 /* LOCATION FORM */
 .locationform{
 
@@ -45,15 +54,19 @@ body {
   min-width: 400px;
   min-height: 200px;
   font-family: RobotoRegular, Arial, Helvetica, sans-serif;
+  color: rgb(116, 116, 116);
+  font-size: 17px;
+
 }
 
-.bold{
-  font-family: RobotoBold, Arial, Helvetica, sans-serif;
-}
-
-.location{
+.location,.tempdegree{
   font-weight: 900;
-  font-size: 20px;
+  font-size: 25px;
+  color: black;
+}
+.tempsymbol{
+  vertical-align: top;
+  color: black;
 }
 
 .sundetails{
@@ -63,3 +76,4 @@ body {
   flex-direction: column;
   align-items: flex-end;
 }
+
