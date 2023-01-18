@@ -1,5 +1,5 @@
 import { getProcessedData } from "./weather";
-import { fetchWeather } from "./weather";
+import { fetchWeatherCurrent } from "./weather";
 
 let locations = [];
 
@@ -87,7 +87,7 @@ function getSearchData(event){
   })
 if(!hasEntered){
   
-  let promise =  fetchWeather(data);
+  let promise =  fetchWeatherCurrent(data);
  promiseEvalUpdateHTML(promise,data);
 
 }
@@ -127,7 +127,7 @@ function refreshData(){
   });
   console.log(locations);
 locations.forEach(element =>{
-  let promise = fetchWeather(element);
+  let promise = fetchWeatherCurrent(element);
   promiseEvalRefreshHTML(promise);
 
 })

@@ -5,7 +5,7 @@ import date from '../node_modules/date-fns'
 let processedData = {};
 const content = document.querySelector('.loading');
 
-async function fetchWeather(location = "Madison") {
+async function fetchWeatherCurrent(location = "Madison") {
   try {
    
     content.textContent = "loading ... (please wait)";
@@ -19,7 +19,6 @@ async function fetchWeather(location = "Madison") {
       { mode: "cors" }
     );
 
-   
     const newData = await promise.json();
     console.log(newData);
     processedData.city = newData.name;
@@ -61,7 +60,7 @@ function getCountry(data){
 }
 function tempToFarenheit(data) {
   const currentTemp = data.main.temp;
-  const newTemp = ((1.8 * (currentTemp - 273) + 32)).toFixed(2);
+  const newTemp = ((1.8 * (currentTemp - 273) + 32)).toFixed(0);
   console.log(newTemp, " F " );
   return newTemp;
 }
@@ -100,4 +99,4 @@ function getProcessedData() {
   console.log(processedData);
   return processedData;
 }
-export { fetchWeather, getProcessedData };
+export { fetchWeatherCurrent, getProcessedData };
