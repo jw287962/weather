@@ -44,7 +44,6 @@ async function fetchWeatherForecast(location = "Madison"){
 }
 function getDate(element,num){
   const addNum = num*86400000 + element.dt;
-  console.log(element.dt);
 
   const date = format(addNum,'iiiiii');
 return date;
