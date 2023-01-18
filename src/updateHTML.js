@@ -1,5 +1,8 @@
 import { getProcessedData } from "./weather";
 import { fetchWeather } from "./weather";
+
+let locations = [];
+
 function updateWeatherHTML(){
   const data = getProcessedData();
   const content = document.querySelector('.content');
@@ -68,22 +71,51 @@ function addSearchListener(){
   
   const searchForm = document.querySelector('.locationform');
   searchForm.addEventListener('submit',getSearchData)
+
+  locations.push('Madison');
 }
 
 function getSearchData(event){
   event.preventDefault();
   const searchData = document.querySelector('#location');
   let data = searchData.value;
-
+  locations.push(data);
  let promise =  fetchWeather(data);
 console.log(promise);
+
+promiseEvalUpdateHTML(promise);
+}
+
+
+function promiseEvalUpdateHTML(promise){
   promise
   .then(() => {
+    console.log(promise);
     updateWeatherHTML();
   })
   .catch((err) => {
-    console.log('CAUGHT ERROR:', err);
+    console.log('ERR:', err);
   });
 }
 
-export { updateWeatherHTML, addSearchListener };
+
+
+function refreshData(){
+  const allWeatherDetails = document.querySelectorAll('.weatherdetails');
+  allWeatherDetails.forEach(element => {
+    console.log(element);
+    element.remove();
+  });
+  console.log(locations);
+locations.forEach(element =>{
+  let promise = fetchWeather(element);
+  promiseEvalUpdateHTML(promise);
+
+})
+
+}
+
+
+export { updateWeatherHTML, addSearchListener, refreshData,
+  promiseEvalUpdateHTML
+};

@@ -28,7 +28,7 @@ body {
   font-size: 20px;
   position: relative;
 }
-:active{
+.refresh:active{
   top: 2px
 }
 /* LOCATION FORM */
