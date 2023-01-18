@@ -118,12 +118,15 @@ if(forecastDiv.length >0){
      days = 7;
   }
   let forecast = getProcessedForecast();
+  const forecastWrapDiv = document.createElement('div');
+  forecastWrapDiv.classList.add('forecastwrap')
   const weatherDetails = document.querySelector(`.${location}`)
   const newDiv = document.createElement('div');
   newDiv.classList.add('forecast')
   newDiv.classList.add(`${location}`)
 
-  weatherDetails.appendChild(newDiv);
+  weatherDetails.appendChild(forecastWrapDiv);
+  forecastWrapDiv.appendChild(newDiv);
 
   for(let i = 0; i <days;i++){
     const date = forecast[`${location}${i}`].date;
@@ -136,7 +139,7 @@ if(forecastDiv.length >0){
 
 function addForeCastHTML(date,temp, description,location){
   const weatherDetails = document.querySelector(`.${location}`);
-  const holderDiv = weatherDetails.lastChild;
+  const holderDiv = weatherDetails.lastChild.lastChild;
 
 
   const dayDiv = document.createElement('div');
