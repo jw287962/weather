@@ -3,6 +3,13 @@ import { fetchWeatherCurrent } from "./weather";
 
 let locations = [];
 
+
+function importAll(r) {
+  return r.keys().map(r);
+}
+ const images = importAll(require.context('./asset/images', false, /\.(png|jpe?g|svg)$/));
+
+console.log(images);
 function updateWeatherHTML(){
   const data = getProcessedData();
   const content = document.querySelector('.content');
@@ -136,11 +143,11 @@ function addForeCastHTML(date,temp, description,location){
   const dateDiv = document.createElement('div');
 
   const tempDiv = document.createElement('div');
-  const descriptionDiv = document.createElement('div');
+  const descriptionDiv = document.createElement('img');
 
   dateDiv.textContent = date;
   tempDiv.textContent = temp + '°F';
-  descriptionDiv.textContent = description;
+  descriptionDiv.src = images[imageNum(description)];
   holderDiv.appendChild(dayDiv);
   dayDiv.appendChild(dateDiv);
   dayDiv.appendChild(tempDiv);
@@ -148,7 +155,20 @@ function addForeCastHTML(date,temp, description,location){
 
 }
 
+function imageNum(description){
+  if(description.includes('Cloud')){
+    return 0;
+  }
+  else if(description.includes('Rain'))
+  return 1;
+  else if(description.includes('Sun'))
+  return 2;
+ else{
+  return 3;
+ }
 
+
+}
 function addSearchListener(){
   
   const searchForm = document.querySelector('.locationform');
