@@ -144,9 +144,14 @@ function addForeCastHTML(date,temp, description,location){
   const dateDiv = document.createElement('div');
 
   const tempDiv = document.createElement('div');
+  tempDiv.classList.add('temperature');
   const descriptionDiv = document.createElement('img');
 
   dateDiv.textContent = date;
+  if((temp*10/10) > 50){
+    tempDiv.setAttribute('id','hot');
+  }
+  else tempDiv.setAttribute('id','cold');
   tempDiv.textContent = temp + '°F';
   descriptionDiv.src = images[imageNum(description)];
   holderDiv.appendChild(dayDiv);
