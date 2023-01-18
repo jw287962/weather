@@ -37,8 +37,8 @@ function updateWeatherHTML(){
   const country = document.createElement('div');
   sunrise.classList.add('country');
 
-
-  location.textContent += data.city;
+console.log(data.location);
+  location.textContent += data.city + ", " + data.location[0].state;
   sunrise.classList.add('country');
   humidity.textContent = data.humidity +  ' Humidity ';
 

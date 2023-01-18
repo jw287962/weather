@@ -88,7 +88,7 @@ async function fetchWeatherCurrent(location = "Madison") {
     const newData = await promise.json();
     console.log(newData);
     processedData.city = newData.name;
-    processedData.location = checkLocation(newData);
+    processedData.location = await checkLocation(newData);
     processedData.humidity = getHumidity(newData);
     processedData.sunset = getSunset(newData);
     processedData.sunrise = getSunrise(newData);
@@ -128,12 +128,15 @@ function tempToFarenheit(data) {
   const newTemp = ((1.8 * (currentTemp - 273) + 32)).toFixed(0);
   return newTemp;
 }
-function checkLocation(data) {
-  const currentLocation = [];
-  currentLocation.push(data.coord.lat);
-  currentLocation.push(data.coord.lon);
-  console.log(currentLocation[0] , currentLocation[1]);
-  return currentLocation;
+async function checkLocation(data) {
+
+  const lat = (data.coord.lat);
+  const lon =(data.coord.lon);
+  const promise = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?` + 
+  `lat=${lat}&lon=${lon}&limit=5&appid=19d6b05066109b1f4f25ae216d98acf3`,  { mode: "cors" })
+  const locationData = await promise.json();
+    console.log(locationData);
+  return locationData;
 
   }
 
