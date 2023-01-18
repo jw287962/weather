@@ -5,7 +5,7 @@ import date from '../node_modules/date-fns'
 let processedData = {};
 const content = document.querySelector('.loading');
 
-async function fetchWeather(location = "Huntsville") {
+async function fetchWeather(location = "Madison") {
   try {
    
     content.textContent = "loading ... (please wait)";
@@ -18,6 +18,8 @@ async function fetchWeather(location = "Huntsville") {
         "APPID=19d6b05066109b1f4f25ae216d98acf3",
       { mode: "cors" }
     );
+
+   
     const newData = await promise.json();
     console.log(newData);
     processedData.city = newData.name;

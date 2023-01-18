@@ -72,33 +72,52 @@ function addSearchListener(){
   const searchForm = document.querySelector('.locationform');
   searchForm.addEventListener('submit',getSearchData)
 
-  locations.push('Madison');
 }
 
 function getSearchData(event){
   event.preventDefault();
+  const content = document.querySelector('.loading');
   const searchData = document.querySelector('#location');
   let data = searchData.value;
-  locations.push(data);
- let promise =  fetchWeather(data);
-console.log(promise);
+  let hasEntered = false;
+  locations.forEach(element => {
+    if(element === data){
+      hasEntered = true;
+    }
+  })
+if(!hasEntered){
+  
+  let promise =  fetchWeather(data);
+ promiseEvalUpdateHTML(promise,data);
 
-promiseEvalUpdateHTML(promise);
+}
+content.textContent = "Unique Locations Only!"
 }
 
 
-function promiseEvalUpdateHTML(promise){
+function promiseEvalUpdateHTML(promise, data){
   promise
   .then(() => {
     console.log(promise);
     updateWeatherHTML();
+    locations.push(data);
   })
   .catch((err) => {
     console.log('ERR:', err);
   });
 }
 
-
+function promiseEvalRefreshHTML(promise){
+  promise
+  .then(() => {
+    console.log(promise);
+    updateWeatherHTML();
+   
+  })
+  .catch((err) => {
+    console.log('ERR:', err);
+  });
+}
 
 function refreshData(){
   const allWeatherDetails = document.querySelectorAll('.weatherdetails');
@@ -109,7 +128,7 @@ function refreshData(){
   console.log(locations);
 locations.forEach(element =>{
   let promise = fetchWeather(element);
-  promiseEvalUpdateHTML(promise);
+  promiseEvalRefreshHTML(promise);
 
 })
 
