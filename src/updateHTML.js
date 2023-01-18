@@ -1,4 +1,4 @@
-import { getProcessedData } from "./weather";
+import { getProcessedData , getProcessedForecast,fetchWeatherForecast} from "./weather";
 import { fetchWeatherCurrent } from "./weather";
 
 let locations = [];
@@ -8,7 +8,7 @@ function updateWeatherHTML(){
   const content = document.querySelector('.content');
   const weatherDetails = document.createElement('div');
   weatherDetails.classList.add('weatherdetails');
-
+  weatherDetails.classList.add(`${data.city}`);
   const sunDetails = document.createElement('div');
   sunDetails.classList.add('sundetails');
   content.appendChild(weatherDetails);
@@ -52,12 +52,25 @@ function updateWeatherHTML(){
   sunset.textContent = 'Sunset ' + data.sunset;
   country.textContent = data.country;
 
+  const forecastWeekButton = document.createElement('button');
+  forecastWeekButton.classList.add('forecastweek');
+  forecastWeekButton.setAttribute('id',`${data.city}`);
+  forecastWeekButton.addEventListener('click',showForecast);
+  forecastWeekButton.textContent = "7 Days";
 
+
+  const forecastMonthButton = document.createElement('button');
+  forecastMonthButton.classList.add('forecastmonth');
+  forecastMonthButton.setAttribute('id',`${data.city}`);
+  forecastMonthButton.textContent = "30 Days";
+  // forecastMonthButton.addEventListener('click',showForecast);
 
   weatherDetails.appendChild(location);
   weatherDetails.appendChild(tempdiv);
   weatherDetails.appendChild(description);
   weatherDetails.appendChild(humidity);
+  sunDetails.appendChild(forecastMonthButton);
+  sunDetails.appendChild(forecastWeekButton);
   sunDetails.appendChild(country);
   sunDetails.appendChild(sunset);
   sunDetails.appendChild(sunrise);
@@ -66,6 +79,55 @@ function updateWeatherHTML(){
 
 
 }
+function showForecast(event){
+  const location = event.target.id
+console.log(location);
+  const forecastDiv = document.getElementsByClassName(`forecast ${location}`);
+if(forecastDiv.length >0){
+  forecastDiv[0].remove();
+}
+  let days;
+  if(event.target.textContent.includes('30')){
+     days = 30;
+  }
+  else{
+     days = 7;
+  }
+  let forecast = getProcessedForecast();
+  const weatherDetails = document.querySelector(`.${location}`)
+  const newDiv = document.createElement('div');
+  newDiv.classList.add('forecast')
+  newDiv.classList.add(`${location}`)
+
+  weatherDetails.appendChild(newDiv);
+
+  for(let i = 0; i <days;i++){
+    console.log(forecast)
+    const temp = forecast[`${location}${i}`].temp;
+    const description = forecast[`${location}${i}`].description;
+    addForeCastHTML(temp,description,location);
+  }
+
+}
+
+function addForeCastHTML(temp, description,location){
+  const weatherDetails = document.querySelector(`.${location}`);
+  const holderDiv = weatherDetails.lastChild;
+
+
+  const dayDiv = document.createElement('div');
+  dayDiv.classList.add('day');
+  const tempDiv = document.createElement('div');
+  tempDiv.textContent = temp + '°F';;
+
+  const descriptionDiv = document.createElement('div');
+  descriptionDiv.textContent = description;
+  holderDiv.appendChild(dayDiv);
+  dayDiv.appendChild(tempDiv);
+  dayDiv.appendChild(descriptionDiv);
+
+}
+
 
 function addSearchListener(){
   
@@ -101,6 +163,7 @@ function promiseEvalUpdateHTML(promise, data){
     console.log(promise);
     updateWeatherHTML();
     locations.push(data);
+    fetchWeatherForecast(data);
   })
   .catch((err) => {
     console.log('ERR:', err);

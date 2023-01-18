@@ -4,6 +4,63 @@ import date from '../node_modules/date-fns'
 
 let processedData = {};
 const content = document.querySelector('.loading');
+let processedForecast = {};
+
+async function fetchWeatherForecast(location = "Madison"){
+  try {
+   
+    content.textContent = "loading ... (please wait)";
+    
+    const city = location;
+
+    const promise = await fetch(
+      "https://api.openweathermap.org" +
+        `/data/2.5/forecast?q=${city}&` +
+        "APPID=19d6b05066109b1f4f25ae216d98acf3",
+      { mode: "cors" }
+    );
+
+    const newData = await promise.json();
+    console.log(newData.list);
+      const dataArray = newData.list;
+      let i = 0;
+      dataArray.forEach(element =>{
+        
+        processedForecast[`${city}${i}`] = {};
+
+
+        processedForecast[`${city}${i}`].temp = getTemperature(element);
+        processedForecast[`${city}${i}`].description = getDescriptionForecast(element);
+
+        i++;
+      })
+ 
+  
+    content.textContent = "";
+  } catch (err) {
+    content.textContent = "Please type a valid location!";
+    throw new Error("ERROR:" + err);
+  }
+}
+function getDescriptionForecast(element){
+  const description = element.weather[0].description;
+
+  let holder = capitalizeFirstLetter(description);
+  return holder;
+
+}
+function getTemperature(element){
+  const currentTemp = element.main.temp;
+
+  const newTemp = ((1.8 * (currentTemp - 273) + 32)).toFixed(0);
+
+  return newTemp;
+}
+
+function getProcessedForecast(){
+  return processedForecast;
+}
+
 
 async function fetchWeatherCurrent(location = "Madison") {
   try {
@@ -99,4 +156,6 @@ function getProcessedData() {
   console.log(processedData);
   return processedData;
 }
-export { fetchWeatherCurrent, getProcessedData };
+export {fetchWeatherForecast, fetchWeatherCurrent, 
+  getProcessedData,getProcessedForecast
+ };

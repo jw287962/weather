@@ -1,5 +1,5 @@
 import "./style.css";
-import {getProcessedData,fetchWeatherCurrent} from './weather';
+import {getProcessedData,fetchWeatherCurrent,fetchWeatherForecast} from './weather';
 import {addSearchListener,updateWeatherHTML, refreshData,
   promiseEvalUpdateHTML
 } from './updateHTML'
@@ -7,7 +7,7 @@ import {addSearchListener,updateWeatherHTML, refreshData,
 
 let defaultLocation = 'Madison';
 let promise = fetchWeatherCurrent(defaultLocation);
-console.log(promise);
+let promiseForcast = fetchWeatherForecast(defaultLocation);
 
 promiseEvalUpdateHTML(promise,defaultLocation);
 

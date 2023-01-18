@@ -49,7 +49,7 @@ body {
   padding: 3px;
   display: flex;
   flex-direction: column;
-  align-items:flex-end;
+  align-items:flex-start;
   border-top: 2px solid grey;
   min-width: 400px;
   min-height: 200px;
@@ -59,6 +59,10 @@ body {
 
 }
 
+
+button:active{
+  top: 2px;
+}
 .location,.tempdegree{
   font-weight: 900;
   font-size: 25px;
@@ -71,9 +75,25 @@ body {
 
 .sundetails{
   position: absolute;
-  bottom: 10px;
+  right: 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
+/* FORECAST */
+.forecastmonth,.forecastweek{
+  background-color: white;
+  border: 1px solid grey;
+  margin: 2px;
+  position: relative;
+}
+
+.forecast{
+  margin: 20px 0px;
+  display: grid;
+  grid-template-columns: repeat(7,100px);
+}
+.day{
+  margin-top: 15px;
+}
